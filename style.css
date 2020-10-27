@@ -45,3 +45,7 @@ button{
     border: 1px solid #043a47;
     background-color: #C8F1F9;
 }
+button:hover{
+    cursor: pointer;
+    background-color: #10a4c2;
+}

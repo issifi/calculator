@@ -46,11 +46,16 @@ equals.addEventListener("click", ()=>{
 
     displayNumber();
     let result = operate(opreatClick, num2, num1)
+    if(result == undefined){
+        result = Number( display.textContent);
+        console.log("result is undefined: ")
+    }
     num1 = result;
     display.textContent = Math.round( result * 1000)/1000
     lastClickedBtn = "equal";
     console.log("result: ",result);
     clickDot = false;
+
 })
 let clickDot = false;
 // the dot button event 
