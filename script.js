@@ -9,19 +9,14 @@ btnNumber.forEach( element => {
         if(lastClickedBtn === "null" || lastClickedBtn === "operator" || lastClickedBtn === "equal"){
             display.textContent = e.target.value;
             lastClickedBtn = "number"
-            // console.log("last click null");
         }else if(lastClickedBtn === "number") {
             display.textContent += e.target.value;
-            // console.log("last click not null");
         }
-        // console.log("element vallue: ", e.target.value )
-        // displayNumber(element);
     })
 })
 
 function displayNumber(num){
     num1 = Number( display.textContent);
-    // console.log(clickNumber)
 }
 let clickNumber ;
 let opreatClick = "";
@@ -36,26 +31,21 @@ operats.forEach(operat => {
         opreatClick = operat.value;
         lastClickedBtn ="operator";
         clickDot = false;
-        console.log(opreatClick)
-        console.log("num 1: ",num1," num2 ",num2); 
     })
 })
 // the equal button event
 const equals = document.querySelector(".equals");
 equals.addEventListener("click", ()=>{
-
     displayNumber();
     let result = operate(opreatClick, num2, num1)
     if(result == undefined){
         result = Number( display.textContent);
-        console.log("result is undefined: ")
     }
     num1 = result;
     display.textContent = Math.round( result * 1000)/1000
     lastClickedBtn = "equal";
-    console.log("result: ",result);
+    // console.log("result: ",result);
     clickDot = false;
-
 })
 let clickDot = false;
 // the dot button event 
