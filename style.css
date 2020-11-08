@@ -3,12 +3,13 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 #main{
-    background-color: rgb(4, 58, 71);
+    background-color: #043a47;
     width: 315px;
     border: 3px rgb(4, 58, 71) solid ;
     border-radius: 5px;
     margin: 10px auto 10px auto;
 }
+
 .title{
     color: #f4f4f4;
     margin: 5px ;
@@ -28,21 +29,23 @@
     height: 40px;
     overflow: hidden;
 }
+
 .container{
     margin: 0 auto 5px auto;
     width: 300px;
     display: grid;
     grid-template-columns:1fr 1fr 1fr 1fr;
     grid-template-rows: repeat(5,50px);
+    grid-gap: 2px;
 }
-.clear{
-    grid-area: 1/1/2/3;
-}
+
 .equals{
-    grid-area: 5/3/-1/-1;
+    grid-row: span 2;
+    background-color: #67d6ec;
 }
 button{
     border: 1px solid #043a47;
+    border-radius: 20px;
     background-color: #C8F1F9;
 }
 button:hover{

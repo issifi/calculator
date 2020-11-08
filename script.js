@@ -3,12 +3,13 @@ let lastClickedBtn = "null";
 const display = document.querySelector(".display")
 const btnNumber = document.querySelectorAll("button.number")
 const dot = document.querySelector(".dot");
+let clickDot = false;
 // numbers inputs
 btnNumber.forEach( element => {
     element.addEventListener("click",(e)=> {
         if(lastClickedBtn === "null" || lastClickedBtn === "operator" || lastClickedBtn === "equal"){
             display.textContent = e.target.value;
-            lastClickedBtn = "number"
+            lastClickedBtn = "number";
         }else if(lastClickedBtn === "number") {
             display.textContent += e.target.value;
         }
@@ -16,7 +17,7 @@ btnNumber.forEach( element => {
 })
 
 function displayNumber(num){
-    num1 = Number( display.textContent);
+    num1 = Number(display.textContent);
 }
 let clickNumber ;
 let opreatClick = "";
@@ -35,25 +36,33 @@ operats.forEach(operat => {
 })
 // the equal button event
 const equals = document.querySelector(".equals");
-equals.addEventListener("click", ()=>{
-    displayNumber();
-    let result = operate(opreatClick, num2, num1)
-    if(result == undefined){
-        result = Number( display.textContent);
+equals.addEventListener("click",()=> equal())
+function equal(){
+    if(lastClickedBtn === "equal"){
+        return result = Number( display.textContent);;
+    }else{
+        displayNumber();
+        let result = operate(opreatClick, num2, num1)
+        if(result == undefined){
+            result = Number( display.textContent);
+        }
+        num1 = result;
+        display.textContent = Math.round( result * 1000)/1000
+        lastClickedBtn = "equal";
+        //  console.log("result: ",result);
+        clickDot = false;
     }
-    num1 = result;
-    display.textContent = Math.round( result * 1000)/1000
-    lastClickedBtn = "equal";
-    // console.log("result: ",result);
-    clickDot = false;
-})
-let clickDot = false;
+    opreatClick = "=";
+
+}
 // the dot button event 
 dot.addEventListener("click",(e)=>{
-    if(clickDot === false){
+    // console.log(display.textContent);
+    if(!display.textContent.includes(".")){
+        // console.log("not includes")
         display.textContent += e.target.value;
-        clickDot = true;
     }
+    lastClickedBtn = "number";
 })
 // remove last number
 const undo = document.querySelector(".undo")
@@ -70,42 +79,55 @@ clear.addEventListener("click",()=>{
     result = null;
     lastClickedBtn = "null";
 })
-
-// function 
-function add(n1,n2) {
-    return n1+n2;
-}
-// console.log(add(3,2));
-
-function substract(s1,s2) {
-    return s1-s2;
-}
-// console.log(substract(3,2))
-
-function multiply(m1,m2) {
-    return m1*m2;
-}
-// console.log(multiply(3,2))
-
-function divide(d1, d2) {
-    if(d2 === 0){
-        return display.textContent = "ERROR";
-    }else{
-        return d1/d2;
+// add keyboard click
+const btns = document.querySelectorAll("button");
+function insert(e){
+    if(/\d/.test(e.key)){
+        if(lastClickedBtn === "null" || lastClickedBtn === "operator" || lastClickedBtn === "equal"){
+            display.textContent = e.key;
+            lastClickedBtn = "number"
+        }else if(lastClickedBtn === "number") {
+            display.textContent += e.key;
+            
+        }
+    }else if(['+','-','*','/'].includes(e.key) ){
+        displayNumber();
+        num2 = num1;        
+        opreatClick = e.key;
+        lastClickedBtn ="operator";
+        clickDot = false;
+    }else if(['=','Enter'].includes(e.key)){
+        equal();
+    }else if(e.key === 'Backspace'){
+        let str = display.textContent;
+        display.textContent = str.slice(0,-1);
     }
 }
-// console.log(divide(3,2))
+// const main = document.querySelector('#main');
+window.addEventListener('keydown', insert);
 
 function operate(op, n1, n2) {
     if (op === "+") {
-        return add(n1,n2);
+        return n1 + n2;
     } else if(op ==="-") {
-        return substract(n1,n2);
+        return n1 - n2;
     } else if(op === "*"){
-        return multiply(n1,n2);
+        return n1 * n2;
     }else if(op === "/"){
-        return divide(n1,n2)
+        if(n2 === 0){
+            return display.textContent = "ERROR";
+        }else{
+            return n1/n2;
+        }
+    }else if (op === "%"){
+        return n1 % n2;
     }
 }
 
+// const testing = document.querySelector(".testing")
+// function updatTest() {
+//     testing.innerHTML = `<p>Num 1: ${num1} <p/><p>Num 2: ${num2} <p/><p>opreat Click: ${opreatClick} <p/>`;
+//     // console.log("num1: "+num1+" num2: "+num2)
+// }
+// updatTest();
 console.log("the program is working!. ")
