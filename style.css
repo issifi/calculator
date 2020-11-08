@@ -47,8 +47,17 @@ button{
     border: 1px solid #043a47;
     border-radius: 20px;
     background-color: #C8F1F9;
+    transition: all 0.3s ease ;
 }
 button:hover{
     cursor: pointer;
+    background-color: #10a4c2;
+}
+.ca{
+    background-color: #ff0000;
+}
+/* css for the js event click to change color */
+
+.click{
     background-color: #10a4c2;
 }

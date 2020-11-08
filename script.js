@@ -81,6 +81,13 @@ clear.addEventListener("click",()=>{
 })
 // add keyboard click
 const btns = document.querySelectorAll("button");
+btns.forEach((btn)=>{
+    btn.addEventListener("transitionend",(e)=>{
+        //if (e.propertyName !== 'transform') return;
+        e.target.classList.remove('click');
+        console.log("transition end",e);
+    })
+})
 function insert(e){
     if(/\d/.test(e.key)){
         if(lastClickedBtn === "null" || lastClickedBtn === "operator" || lastClickedBtn === "equal"){
@@ -102,6 +109,10 @@ function insert(e){
         let str = display.textContent;
         display.textContent = str.slice(0,-1);
     }
+    const key = document.querySelector(`button[data-key*="${e.keyCode}"]`);
+    if(!key) return;
+    key.classList.add('click')
+    // console.log(e.keyCode,key);
 }
 // const main = document.querySelector('#main');
 window.addEventListener('keydown', insert);
@@ -124,10 +135,5 @@ function operate(op, n1, n2) {
     }
 }
 
-// const testing = document.querySelector(".testing")
-// function updatTest() {
-//     testing.innerHTML = `<p>Num 1: ${num1} <p/><p>Num 2: ${num2} <p/><p>opreat Click: ${opreatClick} <p/>`;
-//     // console.log("num1: "+num1+" num2: "+num2)
-// }
-// updatTest();
+
 console.log("the program is working!. ")
