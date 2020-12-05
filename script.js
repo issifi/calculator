@@ -79,17 +79,19 @@ clear.addEventListener("click",()=>{
     result = null;
     lastClickedBtn = "null";
 })
-// add keyboard click
+// add keyboard click animation 
 const btns = document.querySelectorAll("button");
+function removeTransition(e){
+    
+    if (e.propertyName !== 'background-color') return;
+    this.classList.remove('click');
+    console.log(e.propertyName);
+}
 btns.forEach((btn)=>{
-    btn.addEventListener("transitionend",(e)=>{
-        //if (e.propertyName !== 'transform') return;
-        e.target.classList.remove('click');
-        console.log("transition end",e);
-    })
+    btn.addEventListener("transitionend",removeTransition)
 })
 function insert(e){
-    if(/\d/.test(e.key)){
+    if(/^\d/.test(e.key)){
         if(lastClickedBtn === "null" || lastClickedBtn === "operator" || lastClickedBtn === "equal"){
             display.textContent = e.key;
             lastClickedBtn = "number"
@@ -111,8 +113,8 @@ function insert(e){
     }
     const key = document.querySelector(`button[data-key*="${e.keyCode}"]`);
     if(!key) return;
+   
     key.classList.add('click')
-    // console.log(e.keyCode,key);
 }
 // const main = document.querySelector('#main');
 window.addEventListener('keydown', insert);
